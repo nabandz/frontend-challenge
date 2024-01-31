@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/cats/static/js/main.3d45cc25.js",
+    "static/media/favorite_border.svg": "/cats/static/media/favorite_border.d7cfeb9a0367e6ce0d3f835bbd1093d9.svg",
+    "index.html": "/cats/index.html",
+    "static/media/favorite.svg": "/cats/static/media/favorite.0d4544c597560c3c97c6e505dd7a478e.svg",
+    "main.3d45cc25.js.map": "/cats/static/js/main.3d45cc25.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.3d45cc25.js"
+  ]
+}
