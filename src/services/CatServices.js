@@ -7,14 +7,17 @@ const useCatServices = () => {
 
   const BASE_API = "https://api.thecatapi.com/v1/images/search";
   const API_KEY =
-    "api_key=live_pRuh1DXcSobyuOIO3FfhGTjrTpbFks1By04uY534rkYEOuBoZx22eCw9ioCTb2P3";
+    "live_pRuh1DXcSobyuOIO3FfhGTjrTpbFks1By04uY534rkYEOuBoZx22eCw9ioCTb2P3";
   const BASE_PAGE = 1;
 
   const fetchData = async (
     url,
     method = "GET",
     body = null,
-    headers = { "Content-Type": "application/json" }
+    headers = {
+      "Content-Type": "application/json",
+      "x-api-key": `${API_KEY}`,
+    }
   ) => {
     setLoading(true);
 
@@ -24,7 +27,6 @@ const useCatServices = () => {
 
       if (response.ok) {
         setData((data) => [...data, ...resultData]);
-        console.log(data);
       } else {
         throw new Error(`Could not fetch ${url}, status: ${response.status}`);
       }
@@ -40,7 +42,7 @@ const useCatServices = () => {
 
   const getCatsData = async (page = BASE_PAGE) => {
     setLoading(true);
-    await fetchData(`${BASE_API}?limit=15&page=${page}&${API_KEY}`);
+    await fetchData(`${BASE_API}?limit=15&page=${page}`);
   };
 
   const clearError = useCallback(() => setError(null), []);

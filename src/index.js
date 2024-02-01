@@ -29,9 +29,9 @@ const Global = createGlobalStyle`
   }
 
   html {
-    /* scroll-behavior: smooth;
+    scroll-behavior: smooth;
     scroll-padding: 1rem;
-    scrollbar-gutter: stable; */
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -42,22 +42,9 @@ const Global = createGlobalStyle`
     color: var(--color-white);
   }
 
-  /* ::-webkit-scrollbar {
-    width: 0.5rem;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--color-bg);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-grey);
-    border-radius: 0.5rem;
-  } */
-
   @font-face {
     font-family: "Roboto";
-    font-weight: 700;
+    font-weight: 400;
     src: url("./resources/fonts/Roboto-Regular.woff2") format(".woff2");
   }
 `;

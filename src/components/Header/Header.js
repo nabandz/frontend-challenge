@@ -15,7 +15,7 @@ export const Header = () => {
               </NavLinkStyle>
             </NavItem>
             <NavItem>
-              <NavLinkStyle to="/fav-cats">Любимые котики</NavLinkStyle>
+              <NavLinkStyle to="/favorites-cats">Любимые котики</NavLinkStyle>
             </NavItem>
           </NavList>
         </Navigation>

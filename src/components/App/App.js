@@ -13,30 +13,42 @@ import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 function App() {
   const location = useLocation();
 
-  const { data, isLoading, error, getCatsData, clearError } = useCatServices();
+  const {
+    data: catsData,
+    isLoading,
+    error,
+    getCatsData,
+    clearError,
+  } = useCatServices();
 
   const [fetching, setFetching] = useState(true);
   const [page, setPage] = useState(1);
   const [favCats, setFavCats] = useState([]);
+  const [localFavCats, setLocalFavCats] = useState([]);
 
   useEffect(() => {
-    const localFavCats = JSON.parse(localStorage.getItem("fav-cats"));
+    const localFavCatsData = JSON.parse(localStorage.getItem("favorites-cats"));
+
     if (localFavCats) {
-      setFavCats(localFavCats);
+      setLocalFavCats(localFavCatsData);
+      setFavCats(localFavCatsData);
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("fav-cats", JSON.stringify(favCats));
+    localStorage.setItem("favorites-cats", JSON.stringify(favCats));
   }, [favCats]);
 
   useEffect(() => {
     if (fetching) {
       clearError();
+
       if (!isLoading) {
         getCatsData(page);
         setPage((prevPage) => prevPage + 1);
       }
+
       setFetching(false);
     }
     // eslint-disable-next-line
@@ -59,13 +71,19 @@ function App() {
     }
   };
 
-  const handleCatFav = (cat) => {
+  const handleCatFavotites = (cat) => {
     cat.isFav = cat.isFav ? false : true;
-    setFavCats(data.filter((cat) => cat.isFav === true));
+
+    let filterCatsData =
+      catsData.indexOf(cat) !== -1
+        ? [...catsData, ...localFavCats]
+        : [...localFavCats];
+
+    setFavCats([...filterCatsData].filter((cat) => cat.isFav === true));
   };
 
   const errorMessage = error ? <ErrorMessage /> : null;
-  const loadMessage = isLoading ? <LoadingMessage /> : null;
+  const loadingMessage = isLoading ? <LoadingMessage /> : null;
 
   return (
     <Wrapper>
@@ -80,23 +98,31 @@ function App() {
               <>
                 {errorMessage}
                 <CatList>
-                  {data.map((cat) => {
+                  {catsData.map((cat) => {
                     return (
-                      <CatItem key={cat.id} cat={cat} onCatFav={handleCatFav} />
+                      <CatItem
+                        key={cat.id}
+                        cat={cat}
+                        onCatFavorites={handleCatFavotites}
+                      />
                     );
                   })}
                 </CatList>
-                {loadMessage}
+                {loadingMessage}
               </>
             }
           />
           <Route
-            path="/fav-cats"
+            path="/favorites-cats"
             element={
               <CatList>
                 {favCats.map((cat) => {
                   return (
-                    <CatItem key={cat.id} cat={cat} onCatFav={handleCatFav} />
+                    <CatItem
+                      key={cat.id}
+                      cat={cat}
+                      onCatFavorites={handleCatFavotites}
+                    />
                   );
                 })}
               </CatList>

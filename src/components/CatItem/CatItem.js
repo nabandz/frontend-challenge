@@ -3,9 +3,9 @@ import styled from "styled-components";
 import favBorderIcon from "../../resources/img/icons/favorite_border.svg";
 import favIcon from "../../resources/img/icons/favorite.svg";
 
-export const CatItem = ({ cat, onCatFav }) => {
-  const handleFavClick = () => {
-    onCatFav(cat);
+export const CatItem = ({ cat, onCatFavorites }) => {
+  const handleFavoritesClick = () => {
+    onCatFavorites(cat);
   };
 
   const ItemFavButton = cat.isFav ? ItemButtonActive : ItemButton;
@@ -13,7 +13,7 @@ export const CatItem = ({ cat, onCatFav }) => {
   return (
     <ItemStyle>
       <ItemImg src={cat.url} alt={`cat-${cat.id}`}></ItemImg>
-      <ItemFavButton onClick={handleFavClick} />
+      <ItemFavButton onClick={handleFavoritesClick} />
     </ItemStyle>
   );
 };
